@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demo LTI Consumer</title>
+    <style>
+        body {
+            margin: auto;
+            max-width: 1024px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 800px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="{{ launch_url }}" method="post" target="lti-iframe">
+        {% for name,value in lti_params.items %}
+        <input type="hidden" name="{{ name }}" value="{{ value }}" />
+        {% endfor %}
+        <input type="submit" value="Load LTI content">
+    </form>
+
+    <iframe allowfullscreen="true" class="controlled-iframe" name="lti-iframe" srcdoc="<body>Loading...</body>"></iframe>
+
+    <script>
+        setTimeout(() => {
+            // We need an artifical delay because the browser may cancel automated form submission
+            document.querySelector("form").submit();
+        }, 100);
+        document.querySelector("form").addEventListener("submit", () => {
+            document.querySelector("form input[type='submit']").remove();
+        });
+    </script>
+</body>
+
+</html>
