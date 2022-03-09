@@ -6,6 +6,8 @@
 #
 asgiref==3.5.0
     # via django
+deprecated==1.2.13
+    # via redis
 django==3.2.12
     # via
     #   django-lti-toolbox
@@ -16,7 +18,15 @@ huey==2.4.3
     # via lti-producer (setup.cfg)
 oauthlib==3.2.0
     # via django-lti-toolbox
+packaging==21.3
+    # via redis
+pyparsing==3.0.7
+    # via packaging
 pytz==2021.3
     # via django
+redis==4.1.4
+    # via lti-producer (setup.cfg)
 sqlparse==0.4.2
     # via django
+wrapt==1.13.3
+    # via deprecated
