@@ -1,0 +1,12 @@
+-r base.txt
+
+gevent
+gunicorn
+boto3
+django-storages
+mysqlclient
+path
+PyYAML
+python-memcached
+sentry_sdk
+-e git+https://github.com/strata-kk/mux-videos-lti-producer#egg=mux-lti-producer

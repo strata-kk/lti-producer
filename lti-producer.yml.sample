@@ -1,0 +1,58 @@
+---
+ALLOWED_HOSTS:
+  - lti-producer.domain.tld
+CACHES:
+    default:
+        BACKEND: django.core.cache.backends.memcached.MemcachedCache
+        KEY_PREFIX: lti-producer-default
+        LOCATION:
+        - localhost:11211
+    lti_apps:
+        BACKEND: django.core.cache.backends.memcached.MemcachedCache
+        KEY_PREFIX: lti-producer-apps
+        LOCATION:
+        - localhost:11211
+    lti_replay:
+        BACKEND: django.core.cache.backends.memcached.MemcachedCache
+        KEY_PREFIX: lti-producer-replay
+        LOCATION:
+        - localhost:11211
+CORS_ORIGIN_ALLOW_ALL: false
+CORS_ORIGIN_WHITELIST:
+  - https://lms.domain.tld
+  - https://learning-portal.domain.tld
+CSRF_COOKIE_SECURE: true
+CSRF_TRUSTED_ORIGINS:
+  - https://lms.domain.tld
+  - https://learner-portal.domain.tld
+DATABASES:
+    default:
+        ATOMIC_REQUESTS: 'false'
+        ENGINE: django.db.backends.mysql
+        HOST: localhost
+        NAME: ltiproducer
+        OPTIONS:
+            connect_timeout: 10
+            init_command: SET sql_mode='STRICT_TRANS_TABLES'
+        PASSWORD: REPLACE-WITH-STRONG-PASSWORD
+        PORT: 3306
+        USER: ltiproducer001
+ENABLE_CLICKJACKING_MIDDLEWARE: false
+HUEY:
+    huey_class: huey.RedisHuey
+    immediate: false
+    url: redis://localhost:6379
+LANGUAGE_CODE: en-us
+MEDIA_STORAGE_BACKEND:
+    DEFAULT_FILE_STORAGE: django.core.files.storage.FileSystemStorage
+    MEDIA_ROOT: /var/spool/lti-producer/media
+    MEDIA_URL: /media/
+# mux.com credentials
+MUX_TOKEN_ID: 11111111-2222-3333-4444-555555555555
+MUX_TOKEN_SECRET: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+SECRET_KEY: DJANGO-SECRET-REPLACE-WITH-STRONG-LONG-AND-SECURE-STRING
+SENTRY_DSN: https://XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX@sentry.io/132
+SENTRY_ENVIRONMENT: exp-lti-producer
+SITE_NAME: lti-producer.domain.tld
+STATICFILES_STORAGE: django.contrib.staticfiles.storage.StaticFilesStorage
+STATIC_ROOT: /var/spool/lti-producer/staticfiles

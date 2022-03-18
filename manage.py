@@ -1,0 +1,1 @@
+standalone/producer/manage.py
