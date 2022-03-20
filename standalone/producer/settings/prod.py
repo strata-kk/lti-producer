@@ -37,6 +37,12 @@ DATABASES = {
     }
 }
 
+# override settings from YAML file defined in MUX_CONFIG environment variable
+
+if os.environ.get("MUX_CONFIG", None):
+    with codecs.open(os.environ.get("MUX_CONFIG"), encoding='utf-8') as f:
+        vars().update(yaml.safe_load(f))
+
 # https://github.com/strata-kk/mux-videos-lti-producer
 
 try:
@@ -52,12 +58,12 @@ else:
     LTI_LAUNCH_VIEWS = {
         "mux": "mux:launch",
     }
-
-# override settings from YAML file defined in MUX_CONFIG environment variable
-
-if os.environ.get("MUX_CONFIG", None):
-    with codecs.open(os.environ.get("MUX_CONFIG"), encoding='utf-8') as f:
-        vars().update(yaml.safe_load(f))
+    if not 'mux_signing_key' in sys.argv:
+        if not "MUX_ENABLE_SIGNED_PLAYBACK" in vars() or MUX_ENABLE_SIGNED_PLAYBACK == True:
+            if not "MUX_SIGNING_KEY_ID" in vars() or MUX_SIGNING_KEY_ID == "":
+                raise NameError("MUX_ENABLE_SIGNED_PLAYBACK enabled but MUX_SIGNING_KEY_ID settings does not declared in configuration")
+            if not "MUX_SIGNING_PRIVATE_KEY" in vars() or MUX_SIGNING_PRIVATE_KEY == "":
+                raise NameError("MUX_ENABLE_SIGNED_PLAYBACK enabled but MUX_SIGNING_PRIVATE_KEY settings does not declared in configuration")
 
 # Disable X-Frame-Options header to allow to launch LTI in iFrame
 if not ENABLE_CLICKJACKING_MIDDLEWARE:
