@@ -1,6 +1,7 @@
 import os
 import typing as t
 from pathlib import Path
+from distutils.util import strtobool
 
 # root folder: standalone/producer folder
 BASE_DIR = Path(__file__).parent.parent.resolve()
@@ -12,6 +13,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 INTERNAL_IPS = ["127.0.0.1", "localhost"]
 
+ENABLE_CLICKJACKING_MIDDLEWARE = strtobool(os.environ.get("ENABLE_CLICKJACKING_MIDDLEWARE", "True"))
 
 # Application definition
 
@@ -34,9 +36,10 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+if ENABLE_CLICKJACKING_MIDDLEWARE:
+    MIDDLEWARE.append("django.middleware.clickjacking.XFrameOptionsMiddleware")
 
 AUTHENTICATION_BACKENDS = [
     "lti_toolbox.backend.LTIBackend",

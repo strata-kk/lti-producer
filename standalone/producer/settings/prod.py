@@ -59,6 +59,10 @@ if os.environ.get("MUX_CONFIG", None):
     with codecs.open(os.environ.get("MUX_CONFIG"), encoding='utf-8') as f:
         vars().update(yaml.safe_load(f))
 
+# Disable X-Frame-Options header to allow to launch LTI in iFrame
+if not ENABLE_CLICKJACKING_MIDDLEWARE:
+    MIDDLEWARE.remove("django.middleware.clickjacking.XFrameOptionsMiddleware")
+
 # Sentry.io integration
 
 if 'SENTRY_DSN' in vars() and SENTRY_DSN != '':
