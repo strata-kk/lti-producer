@@ -61,6 +61,18 @@ TEMPLATES = [
     },
 ]
 
+# It is highly recommended that you override this in any environment accessed by
+# end users
+CSRF_COOKIE_SECURE = False
+CSRF_TRUSTED_ORIGINS = []
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = ()
+
+MEDIA_STORAGE_BACKEND = {}
+
+# Settings for django file storage
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 LOGGING = {
     "version": 1,
@@ -100,7 +112,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+SITE_NAME = "localhost"
+
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -129,3 +145,5 @@ HUEY = {
 LTI_APP_NAME_KEY = "custom_app"
 LTI_PRODUCER_URLS: t.Dict[str, str] = {}
 LTI_LAUNCH_VIEWS: t.Dict[str, str] = {}
+
+DISABLE_CLICKJACKING_MIDDLEWARE = False

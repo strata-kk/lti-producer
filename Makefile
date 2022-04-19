@@ -7,10 +7,27 @@ SRC_DIRS = ./ltiproducer/ ./standalone/
 compile-requirements: ## Compile requirements files
 	pip-compile --output-file=requirements/base.txt setup.cfg
 	pip-compile --output-file=requirements/dev.txt --extra=dev setup.cfg
+	pip-compile --output-file=requirements/production.txt --extra=prod setup.cfg
 
 upgrade-requirements: ## Upgrade requirements files
 	pip-compile --output-file=requirements/base.txt --upgrade setup.cfg
 	pip-compile --output-file=requirements/dev.txt --upgrade --extra=dev setup.cfg
+	pip-compile --output-file=requirements/production.txt --upgrade --extra=prod setup.cfg
+
+requirements: ## Install Python requirements
+	pip install -r requirements/base.txt
+
+dev-requirements: ## Install Python requirements for development
+	pip install -r requirements/dev.txt
+
+production-requirements: ## Install Python requirements for production
+	pip install -r requirements/production.txt
+
+migrate:
+	./standalone/producer/manage.py migrate
+
+static:
+	./standalone/producer/manage.py collectstatic -v 0 --noinput
 
 test: test-lint test-unit test-types test-format  ## Run all tests by decreasing order of priority
 .PHONY: test
