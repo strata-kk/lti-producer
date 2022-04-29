@@ -113,7 +113,7 @@ Open edX
 
 1. Copy the LTI passport ID and secret from the producer admin (see above). Then, in the Open edX Studio, go to your course advanced settings. Create an LTI passport with the same ID and secret.
 2. In the advanced settings, add "lti_consumer" to the list of advanced modules.
-3. Back to your course content, add an advanced "LTI module" unit. 
+3. Back to your course content, add an advanced "LTI module" unit.
 4. In the unit settings, use the following launch url: http(s)://yourhost/lti/1.1/launch. Note that in order to work inside an iframe, the LTI producer will have to run in a subdomain of the LMS/CMS.
 
 Development
@@ -131,6 +131,17 @@ Compile or upgrade requirements::
 
     make compile-requirements
     make upgrade-requirements
+
+
+Deployment
+==========
+
+Notes:
+Final deployment settings should be in the private.py. All additional custom configurations should be listed there.
+Installation of mux-videos-lti-producer performs in the CI by::
+
+    pip install -e git+https://github.com/strata-kk/mux-videos-lti-producer#egg=mux-lti-producer
+
 
 License
 =======

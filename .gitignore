@@ -3,3 +3,4 @@ __pycache__/
 standalone/producer/db.sqlite3*
 standalone/producer/huey.sqlite3*
 standalone/*/settings/private.py
+lti-producer.yml

@@ -25,7 +25,7 @@ class Lti11LaunchView(View):
             lti.verify()
         except LTIException as error:
             logger.debug(error)
-            return HttpResponseForbidden("Invalid LTI launch request")
+            return HttpResponseForbidden(f"Invalid LTI launch request {error}")
 
         lti_params = LtiParams(lti._params)  # pylint: disable=protected-access
         lti_session_id = lti_params.save_to_session(request.session)
