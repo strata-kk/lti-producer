@@ -1,13 +1,13 @@
-import sys
-from pathlib import Path
+from sys import path
+from os.path import abspath, dirname
 import codecs
 import yaml
 from .base import *  # pylint: disable=wildcard-import,unused-wildcard-import
 
 DEBUG = False
 
-PROJECT_ROOT = Path(__file__).abspath().dirname().dirname().dirname().dirname()
-sys.path.append(PROJECT_ROOT)
+PROJECT_ROOT = dirname(dirname(dirname(dirname(abspath(__file__)))))
+path.append(PROJECT_ROOT)
 
 with codecs.open(os.environ.get("MUX_CONFIG"), encoding='utf-8') as env_file:
     ENV = yaml.safe_load(env_file)
